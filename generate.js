@@ -47,8 +47,8 @@ dirs.forEach((dir) => {
         }
     }
 
-    // Find a thumbnail
-    let finalThumb = `assets/thumbs/${id}.png`; // absolute fallback
+    // Default fallback if no thumbnail is found
+    let finalThumb = ''; 
 
     // Get all files in this game's directory
     const allGameFiles = getAllFiles(path.join(gamesDir, dir), []);

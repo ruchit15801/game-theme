@@ -185,8 +185,8 @@
     </div>
 
     <!-- Scripts at bottom of body for guaranteed execution order without race conditions -->
-    <script src="/js/games.js?v=4"></script>
-    <script src="/js/main.js?v=4"></script>
+    <script src="/js/games.js?v=5"></script>
+    <script src="/js/main.js?v=5"></script>
     <script>
         // Unregister any stuck service workers that are breaking the local experience
         if ('serviceWorker' in navigator) {
@@ -196,7 +196,7 @@
                 }
             });
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js?v=4')
+                navigator.serviceWorker.register('/sw.js?v=5')
                     .then(() => console.log('PWA: SW registered.'))
                     .catch(err => console.log('PWA: SW failed.', err));
             });
