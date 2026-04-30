@@ -1,4 +1,3 @@
-/* ─── Performance-Optimised main.js ─── */
 document.addEventListener('DOMContentLoaded', () => {
     const gameGrid          = document.getElementById('game-grid');
     const recentGrid        = document.getElementById('recent-grid');
@@ -64,19 +63,26 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ── Card HTML builder (avoids repeat string ops) ──
+    const GENRE_CLASS = {
+        action:'genre-action', strategy:'genre-strategy', sports:'genre-sports',
+        racing:'genre-racing', puzzle:'genre-puzzle',  arcade:'genre-arcade'
+    };
+
     function buildCard(game, index, isRecent) {
-        const placeholder = `https://placehold.co/400x400/070C1A/EEF0FF?text=${encodeURIComponent(game.title)}`;
+        const placeholder = `https://placehold.co/400x400/12121A/C9A84C?text=${encodeURIComponent(game.title)}`;
         const imgLoad  = index < 4 ? 'eager' : 'lazy';  // first 4 = eager (LCP boost)
         const imgDecode= index < 4 ? 'sync'  : 'async';
+        const gClass   = GENRE_CLASS[game.category] || 'genre-default';
 
         let badge = '';
-        if (isRecent)          badge = '<div class="recent-badge-tag">Recent</div>';
-        else if (index === 0)  badge = '<div class="featured-crown">⭐ Featured</div>';
-        else if (game.isTrending) badge = '<div class="recent-badge-tag" style="background:linear-gradient(90deg,#ff8a00,#e52e71);">🔥 Trending</div>';
+        if (isRecent)          badge = '<div class="recent-badge-tag">⟳ Recent</div>';
+        else if (index === 0)  badge = '<div class="featured-crown">★ Featured</div>';
+        else if (game.isTrending) badge = '<div class="recent-badge-tag">🔥 Trending</div>';
 
         return `<div class="game-card" onclick="openGameDetails('${game.id}')">
             <div class="game-thumb">
                 ${badge}
+                <div class="genre-badge ${gClass}">${game.category}</div>
                 <img src="/${game.thumbnail}" alt="${game.title}" width="400" height="400"
                      loading="${imgLoad}" decoding="${imgDecode}"
                      onerror="this.src='${placeholder}'">
@@ -159,7 +165,9 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('recent_games', JSON.stringify(recent.slice(0, 8)));
         localStorage.setItem('a23_last_play_time', Date.now());
 
-        window.location.href = `/games/${game.slug || game.id}`;
+        // Use query parameter directly so it works on simple local servers
+        // Vercel rewrites handles /games/slug in prod, but local http-server doesn't by default
+        window.location.href = `/game-details.html?slug=${game.slug || game.id}`;
     };
 
     // ── Coin system ──
