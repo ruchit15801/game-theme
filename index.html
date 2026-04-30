@@ -3,6 +3,11 @@
 
 <head>
     <meta charset="UTF-8">
+    <!-- DNS Prefetch & Preconnect (speed boost for external resources) -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="dns-prefetch" href="//pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="//www.googletagmanager.com">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A23Games | Best Free Mobile Games &amp; Online Puzzle Games</title>
     <meta name="description" content="Play 17+ best free mobile games and online puzzle games on A23Games. No downloads required. High-quality arcade, strategy, and casual games for instant fun!">
@@ -60,6 +65,13 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Preload critical CSS -->
+    <link rel="preload" href="/css/style.css" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" as="style">
+    <!-- Preload critical JS -->
+    <link rel="preload" href="/js/games.js" as="script">
+    <link rel="preload" href="/js/main.js" as="script">
+    <!-- Load fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
 </head>
@@ -175,9 +187,11 @@
 
     </div>
 
-    <script src="/js/games.js"></script>
-    <script src="/js/main.js"></script>
+    <!-- defer = non-blocking, loads after HTML parsed -->
+    <script src="/js/games.js" defer></script>
+    <script src="/js/main.js" defer></script>
     <script>
+        // Register SW after page load — non-blocking
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('/sw.js')

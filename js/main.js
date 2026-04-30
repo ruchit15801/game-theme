@@ -1,98 +1,126 @@
+/* ─── Performance-Optimised main.js ─── */
 document.addEventListener('DOMContentLoaded', () => {
-    const gameGrid = document.getElementById('game-grid');
-    const recentGrid = document.getElementById('recent-grid');
-    const recentSection = document.getElementById('recent-games-section');
-    const searchInput = document.getElementById('game-search');
-    const categoryBtns = document.querySelectorAll('.cat-btn');
-    const paginationControls = document.getElementById('pagination-controls');
-    const prevPageBtn = document.getElementById('prev-page');
-    const nextPageBtn = document.getElementById('next-page');
-    const pageInfo = document.getElementById('page-info');
+    const gameGrid          = document.getElementById('game-grid');
+    const recentGrid        = document.getElementById('recent-grid');
+    const recentSection     = document.getElementById('recent-games-section');
+    const searchInput       = document.getElementById('game-search');
+    const categoryBtns      = document.querySelectorAll('.cat-btn');
+    const paginationControls= document.getElementById('pagination-controls');
+    const prevPageBtn       = document.getElementById('prev-page');
+    const nextPageBtn       = document.getElementById('next-page');
+    const pageInfo          = document.getElementById('page-info');
 
     let currentFilter = 'all';
-    let searchQuery = '';
-    let currentPage = 1;
+    let searchQuery   = '';
+    let currentPage   = 1;
     const itemsPerPage = 12;
 
-    // Initial Renders
+    // Build a fast lookup map by ID once
+    let GAME_MAP = {};
+    if (window.GAMES) {
+        window.GAMES.forEach(g => { GAME_MAP[g.id] = g; });
+    }
+
+    // Initial render
     renderRecentGames();
     renderGames();
 
-    // --- Search & Category Handlers ---
+    // ── Debounced search ──
+    let searchTimer = null;
     searchInput.addEventListener('input', (e) => {
-        searchQuery = e.target.value.toLowerCase();
-        currentPage = 1;
-        renderGames();
+        clearTimeout(searchTimer);
+        searchTimer = setTimeout(() => {
+            searchQuery = e.target.value.toLowerCase().trim();
+            currentPage = 1;
+            renderGames();
+        }, 180);   // 180ms debounce — fast but not janky
     });
 
+    // ── Category filter ──
     categoryBtns.forEach(btn => {
         btn.addEventListener('click', () => {
+            if (btn.dataset.category === currentFilter) return; // no-op if same
             categoryBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             currentFilter = btn.dataset.category;
-            currentPage = 1;
+            currentPage   = 1;
             renderGames();
         });
     });
 
+    // ── Pagination ──
     prevPageBtn.addEventListener('click', () => {
         if (currentPage > 1) {
             currentPage--;
             renderGames();
-            document.querySelector('.controls').scrollIntoView({ behavior: 'smooth' });
+            document.querySelector('.controls').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     });
 
     nextPageBtn.addEventListener('click', () => {
         currentPage++;
         renderGames();
-        document.querySelector('.controls').scrollIntoView({ behavior: 'smooth' });
+        document.querySelector('.controls').scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
 
-    // --- Core Logic ---
+    // ── Card HTML builder (avoids repeat string ops) ──
+    function buildCard(game, index, isRecent) {
+        const placeholder = `https://placehold.co/400x400/070C1A/EEF0FF?text=${encodeURIComponent(game.title)}`;
+        const imgLoad  = index < 4 ? 'eager' : 'lazy';  // first 4 = eager (LCP boost)
+        const imgDecode= index < 4 ? 'sync'  : 'async';
 
+        let badge = '';
+        if (isRecent)          badge = '<div class="recent-badge-tag">Recent</div>';
+        else if (index === 0)  badge = '<div class="featured-crown">⭐ Featured</div>';
+        else if (game.isTrending) badge = '<div class="recent-badge-tag" style="background:linear-gradient(90deg,#ff8a00,#e52e71);">🔥 Trending</div>';
+
+        return `<div class="game-card" onclick="openGameDetails('${game.id}')">
+            <div class="game-thumb">
+                ${badge}
+                <img src="/${game.thumbnail}" alt="${game.title}" width="400" height="400"
+                     loading="${imgLoad}" decoding="${imgDecode}"
+                     onerror="this.src='${placeholder}'">
+                <div class="play-badge">▶</div>
+            </div>
+            <div class="game-info">
+                <span class="title">${game.title}</span>
+                <span class="sub">${game.category.toUpperCase()}</span>
+            </div>
+        </div>`;
+    }
+
+    // ── Core render (uses DocumentFragment-style single innerHTML set) ──
     function renderGames() {
         if (!window.GAMES) return;
 
         let filtered = window.GAMES;
 
         if (currentFilter === 'trending') {
-            filtered = filtered.filter(game => game.isTrending);
+            filtered = filtered.filter(g => g.isTrending);
         } else if (currentFilter !== 'all') {
-            filtered = filtered.filter(game => game.category === currentFilter);
+            filtered = filtered.filter(g => g.category === currentFilter);
         }
 
         if (searchQuery) {
-            filtered = filtered.filter(game => game.title.toLowerCase().includes(searchQuery));
+            filtered = filtered.filter(g => g.title.toLowerCase().includes(searchQuery));
         }
 
         if (filtered.length === 0) {
-            gameGrid.innerHTML = '<div class="loader">No games found matching your search.</div>';
+            gameGrid.innerHTML = '<div class="loader">No games found.</div>';
             paginationControls.style.display = 'none';
             return;
         }
 
-        const totalPages = Math.ceil(filtered.length / itemsPerPage);
-        
+        const totalPages  = Math.ceil(filtered.length / itemsPerPage);
         if (currentPage > totalPages) currentPage = totalPages;
-        
-        const startIndex = (currentPage - 1) * itemsPerPage;
-        const paginated = filtered.slice(startIndex, startIndex + itemsPerPage);
 
-        gameGrid.innerHTML = paginated.map((game, index) => `
-            <div class="game-card" onclick="openGameDetails('${game.id}')">
-                <div class="game-thumb">
-                    ${index === 0 ? '<div class="featured-crown">⭐ Featured</div>' : (game.isTrending ? '<div class="recent-badge-tag" style="background: linear-gradient(90deg, #ff8a00, #e52e71);">🔥 Trending</div>' : '')}
-                    <img src="/${game.thumbnail}" alt="${game.title}" loading="lazy" decoding="async" onerror="this.src='https://placehold.co/600x400/070C1A/EEF0FF?text=${game.title.replace(/ /g, '+')}'">
-                    <div class="play-badge">▶</div>
-                </div>
-                <div class="game-info">
-                    <span class="title">${game.title}</span>
-                    <span class="sub">${game.category.toUpperCase()}</span>
-                </div>
-            </div>
-        `).join('');
+        const start     = (currentPage - 1) * itemsPerPage;
+        const paginated = filtered.slice(start, start + itemsPerPage);
 
+        // Single innerHTML assignment — fastest DOM update
+        gameGrid.innerHTML = paginated.map((game, i) => buildCard(game, i, false)).join('');
+
+        // Pagination
         if (totalPages > 1) {
             paginationControls.style.display = 'flex';
             pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
@@ -103,98 +131,64 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // ── Recent games ──
     function renderRecentGames() {
         const recentIds = JSON.parse(localStorage.getItem('recent_games') || '[]');
-        if (recentIds.length === 0) {
-            recentSection.style.display = 'none';
-            return;
-        }
+        if (recentIds.length === 0) { recentSection.style.display = 'none'; return; }
 
-        // Filter and get game objects, keep most recent first
         const recentGames = recentIds
-            .map(id => window.GAMES.find(g => g.id === id))
+            .map(id => GAME_MAP[id] || window.GAMES?.find(g => g.id === id))
             .filter(Boolean)
-            .slice(0, 4); // Show top 4
+            .slice(0, 4);
 
-        if (recentGames.length === 0) {
-            recentSection.style.display = 'none';
-            return;
-        }
+        if (recentGames.length === 0) { recentSection.style.display = 'none'; return; }
 
         recentSection.style.display = 'block';
-        recentGrid.innerHTML = recentGames.map(game => `
-            <div class="game-card" onclick="openGameDetails('${game.id}')">
-                <div class="game-thumb">
-                    <div class="recent-badge-tag">Recent</div>
-                    <img src="/${game.thumbnail}" alt="${game.title}" loading="lazy" decoding="async" onerror="this.src='https://placehold.co/600x400/1e293b/f8fafc?text=${game.title.replace(/ /g, '+')}'">
-                    <div class="play-badge">▶</div>
-                </div>
-                <div class="game-info">
-                    <span class="title">${game.title}</span>
-                    <span class="sub">${game.category.toUpperCase()}</span>
-                </div>
-            </div>
-        `).join('');
+        recentGrid.innerHTML = recentGames.map((game, i) => buildCard(game, i + 10, true)).join('');
     }
 
-    // --- Navigation & Tracking ---
+    // ── Navigation ──
     window.openGameDetails = (gameId) => {
-        const game = window.GAMES.find(g => g.id === gameId);
+        const game = GAME_MAP[gameId] || window.GAMES?.find(g => g.id === gameId);
         if (!game) return;
 
-        // Save to Recent (still using ID for logic)
+        // Optimistic save to recent
         let recent = JSON.parse(localStorage.getItem('recent_games') || '[]');
-        recent = recent.filter(id => id !== gameId); 
-        recent.unshift(gameId); 
-        localStorage.setItem('recent_games', JSON.stringify(recent.slice(0, 8))); 
-
-        // Track when they left for a game to reward them upon return
+        recent = recent.filter(id => id !== gameId);
+        recent.unshift(gameId);
+        localStorage.setItem('recent_games', JSON.stringify(recent.slice(0, 8)));
         localStorage.setItem('a23_last_play_time', Date.now());
 
-        // SEO Optimized URL (Absolute Path)
         window.location.href = `/games/${game.slug || game.id}`;
     };
 
-    // --- Premium Coin & Playtime Reward Logic ---
-    const balanceAmountEl = document.getElementById('balance-amount');
+    // ── Coin system ──
+    const balanceAmountEl      = document.getElementById('balance-amount');
     const coinBalanceContainer = document.querySelector('.coin-balance');
-    let coins = parseInt(localStorage.getItem('a23_coins')) || 5;
-    
+    let coins = parseInt(localStorage.getItem('a23_coins'), 10) || 5;
     balanceAmountEl.textContent = coins;
 
     function addCoins(amount) {
         coins += amount;
         localStorage.setItem('a23_coins', coins);
-        
         balanceAmountEl.textContent = coins;
-        
-        // Pulse animation
+
         coinBalanceContainer.classList.remove('coin-animate');
-        void coinBalanceContainer.offsetWidth; 
+        void coinBalanceContainer.offsetWidth;
         coinBalanceContainer.classList.add('coin-animate');
-        
-        // Floating +X animation
+
         const floatEl = document.createElement('div');
         floatEl.className = 'coin-float';
         floatEl.textContent = `+${amount}`;
         coinBalanceContainer.appendChild(floatEl);
-        
         setTimeout(() => floatEl.remove(), 1500);
     }
 
-    // Initial load bonus if returning from a game (simulated playtime reward)
     const lastPlayed = localStorage.getItem('a23_last_play_time');
     if (lastPlayed) {
-        const timeDiff = Math.floor((Date.now() - parseInt(lastPlayed)) / 1000);
-        
-        // Logic: Give 1 coin per 3 seconds of gameplay
-        // Requirement: Must earn at least 5 coins (minimum ~15 seconds of play)
-        const earned = Math.min(Math.floor(timeDiff / 3), 100); 
-        
-        if (earned >= 5) {
-            setTimeout(() => addCoins(earned), 800);
-        }
-        
+        const timeDiff = Math.floor((Date.now() - parseInt(lastPlayed, 10)) / 1000);
+        const earned   = Math.min(Math.floor(timeDiff / 3), 100);
+        if (earned >= 5) setTimeout(() => addCoins(earned), 800);
         localStorage.removeItem('a23_last_play_time');
     }
 });
