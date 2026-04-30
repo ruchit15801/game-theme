@@ -1,0 +1,18 @@
+{
+  "name": "A23Games Portal",
+  "short_name": "A23Games",
+  "description": "Play the best free mobile games and online puzzle games on A23Games.",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#38bdf8",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

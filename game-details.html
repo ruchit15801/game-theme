@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Details | A23Game</title>
+    <meta name="description" id="meta-desc" content="Play high-quality online games on A23Games. No downloads required.">
+    <link rel="canonical" id="canonical-url" href="https://a23game.in/game-details.html">
+
+    <!-- PWA & Icons -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#6366F1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/icon-512.png">
+
+    <!-- Google AdSense — Auto Ads (pub-1818899363641893) -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1818899363641893"
+        crossorigin="anonymous"></script>
+
+    <!-- Google Analytics (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-B0TNF7TQW3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-B0TNF7TQW3');
+    </script>
+
+    <!-- Content Protection -->
+    <script src="js/security.js"></script>
+
+    <!-- Open Graph -->
+    <meta property="og:title" id="og-title" content="Game Details | A23Games">
+    <meta property="og:description" id="og-desc" content="Play instant high-quality games on A23Games.">
+    <meta property="og:image" id="og-image" content="https://a23game.in/assets/img/og-image.png">
+    <meta property="og:type" content="website">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .details-container {
+            max-width: 600px;
+            margin: 1.75rem auto;
+            text-align: center;
+        }
+        .details-card {
+            background: var(--glass2);
+            border: 1px solid var(--border2);
+            border-radius: 22px;
+            padding: 1.75rem;
+            backdrop-filter: blur(14px);
+            box-shadow: var(--shadow-card);
+        }
+        .hero-thumb {
+            width: 100%;
+            aspect-ratio: 16/9;
+            border-radius: 16px;
+            object-fit: cover;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 32px rgba(0,0,0,.55);
+        }
+        .game-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 0.8rem;
+            color: var(--t1);
+        }
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            color: var(--t2);
+            margin-bottom: 1.75rem;
+            font-size: 0.9rem;
+        }
+        .play-btn-large {
+            background: var(--grad-brand);
+            color: #fff;
+            padding: 1rem 3.5rem;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform .28s var(--ease), box-shadow .28s;
+            box-shadow: 0 8px 24px rgba(99,102,241,.4);
+            border: none;
+            cursor: pointer;
+        }
+        .play-btn-large:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 14px 30px rgba(99,102,241,.55);
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 1.75rem;
+            color: var(--t2);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color .2s, transform .2s;
+        }
+        .back-link:hover { color: var(--t1); transform: translateX(-3px); }
+        .description-box {
+            margin-top: 2rem;
+            text-align: left;
+            border-top: 1px solid var(--border);
+            padding-top: 1.75rem;
+        }
+        .description-box h3 { color: var(--p1); margin-bottom: 0.85rem; font-size: 1rem; font-weight: 700; }
+        .description-box p  { color: var(--t2); line-height: 1.7; font-size: 0.9rem; }
+    </style>
+</head>
+
+<body>
+    <div id="app-wrapper">
+        <div class="bg-glow bg-glow-1"></div>
+        <div class="bg-glow bg-glow-2"></div>
+
+        <header>
+            <div class="container header-content">
+                <div class="logo">
+                    <img src="/assets/logo.png" class="logo-icon-img" alt="A23 Logo">
+                    <h1>A23<span>GAMES</span></h1>
+                </div>
+                <div class="user-info">
+                    <div class="coin-balance">
+                        <span class="coin-icon">🪙</span>
+                        <span id="balance-amount">5</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="container">
+            <div class="details-container">
+                <div class="details-card" id="details-content">
+                    <div class="loader">Loading game details...</div>
+                </div>
+                <a href="/index.html" class="back-link">← Back to Gallery</a>
+            </div>
+        </main>
+
+        <footer>
+            <div class="container footer-content">
+                <div class="footer-links">
+                    <a href="/privacy.html">Privacy Policy</a>
+                    <a href="/terms.html">Terms of Service</a>
+                </div>
+                <p>&copy; 2026 A23Games. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="/js/games.js"></script>
+    <script src="/js/details.js"></script>
+    <script>
+        // Store game visit in localStorage for Recent Games logic
+        const params = new URLSearchParams(window.location.search);
+        const gameId = params.get('id');
+        if (gameId) {
+            let recent = JSON.parse(localStorage.getItem('recent_games') || '[]');
+            recent = recent.filter(id => id !== gameId);
+            recent.unshift(gameId);
+            localStorage.setItem('recent_games', JSON.stringify(recent.slice(0, 8)));
+        }
+
+        // Register Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js');
+            });
+        }
+    </script>
+</body>
+
+</html>

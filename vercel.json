@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/games/:slug",
+      "destination": "/game-details.html?slug=:slug"
+    }
+  ]
+}

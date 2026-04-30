@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Allow: /index.html
+Allow: /game-details.html
+Allow: /games/
+
+# Sitemap location
+Sitemap: https://a23game.in/sitemap.xml

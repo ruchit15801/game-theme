@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A23Games | Best Free Mobile Games &amp; Online Puzzle Games</title>
+    <meta name="description" content="Play 17+ best free mobile games and online puzzle games on A23Games. No downloads required. High-quality arcade, strategy, and casual games for instant fun!">
+    <meta name="keywords" content="free mobile games, best puzzle games, online games, hypercasual games, HTML5 games, A23 Games, mobile arcade, free browser games, play online games free">
+    <link rel="canonical" href="https://a23game.in/">
+
+    <!-- PWA & Icons -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#FF4D4D">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/icon-512.png">
+
+    <!-- Google AdSense Auto Ads -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1818899363641893"
+        crossorigin="anonymous"></script>
+
+    <!-- Google Analytics (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-B0TNF7TQW3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-B0TNF7TQW3');
+    </script>
+    <!-- Content Protection -->
+    <script src="js/security.js"></script>
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="A23Games | Best Free Mobile Games">
+    <meta property="og:description" content="Play instant high-quality games on A23Games. No downloads, just pure fun!">
+    <meta property="og:image" content="https://a23game.in/assets/img/og-image.png">
+    <meta property="og:url" content="https://a23game.in/">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="A23Games | Best Free Mobile Games">
+    <meta name="twitter:description" content="Play instant high-quality games on A23Games.">
+    <meta name="twitter:image" content="https://a23game.in/assets/img/og-image.png">
+
+    <!-- JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "A23Games",
+      "operatingSystem": "Web, Android, iOS",
+      "applicationCategory": "GameApplication",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.8", "ratingCount": "1250" }
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <div id="app-wrapper">
+
+        <!-- Background -->
+        <div class="bg-glow bg-glow-1"></div>
+        <div class="bg-glow bg-glow-2"></div>
+        <div class="bg-shapes">
+            <svg class="shape shape-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="6" width="20" height="12" rx="4"/><path d="M6 12h4m-2-2v4m10-2h.01M14 12h.01"/>
+            </svg>
+            <svg class="shape shape-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+            <svg class="shape shape-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+            </svg>
+            <svg class="shape shape-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14"/>
+            </svg>
+        </div>
+
+        <!-- Header -->
+        <header>
+            <div class="container header-content">
+                <div class="logo">
+                    <img src="/assets/logo.png" class="logo-icon-img" alt="A23 Logo">
+                    <h1>A23<span>GAMES</span></h1>
+                </div>
+                <div class="user-info">
+                    <div class="coin-balance">
+                        <span class="coin-icon">🪙</span>
+                        <span id="balance-amount">5</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="container">
+
+            <!-- Search & Filter -->
+            <section class="controls">
+                <div class="search-box">
+                    <span class="search-icon">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.3-4.3"></path>
+                        </svg>
+                    </span>
+                    <input type="text" id="game-search" placeholder="Search amazing games...">
+                </div>
+
+                <div class="categories-wrapper">
+                    <div class="categories" id="category-list">
+                        <button class="cat-btn active" data-category="all">All Games</button>
+                        <button class="cat-btn" data-category="trending">🔥 Trending</button>
+                        <button class="cat-btn" data-category="puzzle">Puzzle</button>
+                        <button class="cat-btn" data-category="action">Action</button>
+                        <button class="cat-btn" data-category="arcade">Arcade</button>
+                        <button class="cat-btn" data-category="strategy">Strategy</button>
+                        <button class="cat-btn" data-category="racing">Racing</button>
+                        <button class="cat-btn" data-category="sports">Sports</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Recent Games Section -->
+            <section id="recent-games-section" style="display: none; margin-top: 2rem;">
+                <div class="section-header">
+                    <h2 class="section-title">Recent Games</h2>
+                    <div class="section-underline"></div>
+                </div>
+                <div class="recent-grid" id="recent-grid"></div>
+            </section>
+
+            <!-- Game Grid -->
+            <section class="game-grid" id="game-grid">
+                <div class="loader">Loading amazing games...</div>
+            </section>
+
+            <!-- Pagination Controls -->
+            <div class="pagination" id="pagination-controls" style="display: none;">
+                <button class="page-btn" id="prev-page" disabled>Previous</button>
+                <span class="page-info" id="page-info">Page 1 of 1</span>
+                <button class="page-btn" id="next-page">Next</button>
+            </div>
+
+            <!-- About Section -->
+            <section class="about-section">
+                <h2>Why Play on A23Games?</h2>
+                <p>A23Games is your premier destination for high-quality, instant-play HTML5 games. We curate the best puzzle, arcade, and action games so you can enjoy them on any device with no downloads required.</p>
+                <ul>
+                    <li>17+ Premium Titles and counting</li>
+                    <li>Global High Scores and Active Player Community</li>
+                    <li>Optimized for both Mobile and Desktop play</li>
+                </ul>
+            </section>
+
+        </main>
+
+        <footer>
+            <div class="container footer-content">
+                <div class="footer-links">
+                    <a href="/privacy.html">Privacy Policy</a>
+                    <a href="/terms.html">Terms of Service</a>
+                </div>
+                <p>&copy; 2026 A23Games. All rights reserved.</p>
+            </div>
+        </footer>
+
+    </div>
+
+    <script src="/js/games.js"></script>
+    <script src="/js/main.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(() => console.log('PWA: SW registered.'))
+                    .catch(err => console.log('PWA: SW failed.', err));
+            });
+        }
+    </script>
+</body>
+
+</html>

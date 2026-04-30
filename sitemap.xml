@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Homepage -->
+  <url>
+    <loc>https://a23game.in/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <!-- Content Pages -->
+  <url>
+    <loc>https://a23game.in/privacy.html</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://a23game.in/terms.html</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <!-- SEO Game Pages -->
+  <url><loc>https://a23game.in/games/2048-classic-puzzle</loc><lastmod>2026-04-15</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://a23game.in/games/canvas-tower-defense-strategy</loc><lastmod>2026-04-15</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://a23game.in/games/mimstris-classic-tetris-clone</loc><lastmod>2026-04-15</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://a23game.in/games/teeter-balance-physics-skill</loc><lastmod>2026-04-15</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://a23game.in/games/watermelon-merge-fruit-game</loc><lastmod>2026-04-15</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://a23game.in/games/samegame-color-block-puzzle</loc><lastmod>2026-04-15</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://a23game.in/games/airport-madness-traffic-control</loc><lastmod>2026-04-15</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://a23game.in/games/tower-builder-arcade-stack</loc><lastmod>2026-04-15</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://a23game.in/games/fast-car-racing-highway-dodge</loc><lastmod>2026-04-15</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://a23game.in/games/gun-flip-physics-action</loc><lastmod>2026-04-15</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://a23game.in/games/snake-2026-neon-arcade</loc><lastmod>2026-04-15</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://a23game.in/games/balloon-blitz-pop-frenzy</loc><lastmod>2026-04-15</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://a23game.in/games/feed-the-frog-physics-puzzle</loc><lastmod>2026-04-15</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://a23game.in/games/hidden-easter-egg-hunt-puzzle</loc><lastmod>2026-04-15</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://a23game.in/games/mini-golf-3d-sports-game</loc><lastmod>2026-04-15</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://a23game.in/games/pop-the-balloons-reflex-game</loc><lastmod>2026-04-15</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://a23game.in/games/air-battle-mission-jet-combat</loc><lastmod>2026-04-15</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+</urlset>
