@@ -825,15 +825,15 @@ function drawThumbnail(){
   // Export
   const ds = c.toDataURL('image/jpeg', 0.9);
   
-  // Set to DOM
-  const og = document.getElementById('ogImage');
-  if(og) og.content = ds;
+  // Set to DOM (Static assets are preferred for platform/SEO)
+  // const og = document.getElementById('ogImage');
+  // if(og) og.content = ds;
   const mt = document.getElementById('gameThumbnail');
   if(mt) { mt.src = ds; document.getElementById('menuThumbWrap').style.display='block'; }
-  const fv = document.getElementById('favicon');
-  if(fv) fv.href = ds;
-  const ap = document.getElementById('appleIcon');
-  if(ap) ap.href = ds;
+  // const fv = document.getElementById('favicon');
+  // if(fv) fv.href = ds;
+  // const ap = document.getElementById('appleIcon');
+  // if(ap) ap.href = ds;
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

@@ -1,5 +1,5 @@
 /* ─── A23 Games — Performance Service Worker v2 ─── */
-const CACHE_NAME    = 'a23games-v2';
+const CACHE_NAME    = 'a23games-v3';
 const FONT_CACHE    = 'a23fonts-v1';
 const IMG_CACHE     = 'a23images-v1';
 
@@ -9,7 +9,6 @@ const SHELL_ASSETS = [
     '/index.html',
     '/game-details.html',
     '/css/style.css',
-    '/js/games.js',
     '/js/main.js',
     '/js/details.js',
     '/js/security.js',
@@ -56,7 +55,13 @@ self.addEventListener('fetch', event => {
         return;
     }
 
-    // 3. App shell (HTML/CSS/JS) — Cache-first
+    // 3. Game Data — Network-First (so new games show up instantly)
+    if (url.pathname.endsWith('/js/games.js')) {
+        event.respondWith(networkFirst(event.request, CACHE_NAME));
+        return;
+    }
+
+    // 4. App shell (HTML/CSS/JS) — Cache-first
     if (
         event.request.destination === 'document' ||
         event.request.destination === 'script'   ||
@@ -97,4 +102,20 @@ async function staleWhileRevalidate(request, cacheName) {
     }).catch(() => cached);
 
     return cached || fetchPromise;
+}
+
+// ── Strategy: Network-First ──
+async function networkFirst(request, cacheName) {
+    try {
+        const fresh = await fetch(request);
+        if (fresh && fresh.status === 200) {
+            const cache = await caches.open(cacheName);
+            cache.put(request, fresh.clone());
+        }
+        return fresh;
+    } catch (e) {
+        const cached = await caches.match(request);
+        if (cached) return cached;
+        throw e;
+    }
 }

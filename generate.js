@@ -122,6 +122,19 @@ dirs.forEach((dir) => {
     });
 });
 
+// Sort games by thumbnail quality so the best ones appear first
+existingGames.sort((a, b) => {
+    const scoreThumb = (thumb) => {
+        let score = 0;
+        if (thumb.startsWith('assets/thumbs/')) score += 1000;
+        if (thumb.includes('icon.png') || thumb.includes('thumb.png')) score += 500;
+        if (thumb.endsWith('.png') || thumb.endsWith('.jpg')) score += 200;
+        if (thumb.endsWith('.svg')) score += 100;
+        return score;
+    };
+    return scoreThumb(b.thumbnail) - scoreThumb(a.thumbnail);
+});
+
 let trendingCount = 0;
 existingGames.forEach((g, index) => {
     if (index % 11 === 0 && trendingCount < 10) {
@@ -138,4 +151,4 @@ if (trendingCount === 0 && existingGames.length > 0) {
 
 const newContent = `window.GAMES = ${JSON.stringify(existingGames, null, 4)};`;
 fs.writeFileSync(gamesJsPath, newContent);
-console.log("Re-generated games.js with " + existingGames.length + " games. Thumbnails scanned recursively.");
+console.log("Re-generated games.js with " + existingGames.length + " games. Thumbnails scanned recursively and sorted by quality.");

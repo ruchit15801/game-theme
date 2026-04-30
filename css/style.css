@@ -140,6 +140,7 @@ header{
 .controls{
   margin-top:16px;display:flex;flex-direction:column;gap:12px;
   position:relative;z-index:10;
+  scroll-margin-top: 80px; /* Prevents sticky header from covering search bar during pagination scroll */
 }
 
 .search-box{position:relative;}
@@ -270,7 +271,8 @@ header{
 
 /* Thumbnail */
 .game-thumb{
-  width:100%;aspect-ratio:1;background:#0A0A12;
+  width:100%;aspect-ratio:1;
+  background: radial-gradient(circle at center, #1A1A26 0%, #0A0A12 100%);
   position:relative;overflow:hidden;flex-shrink:0;
 }
 .game-thumb img{
