@@ -36,9 +36,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Dynamic Stats (Randomized for premium feel)
     const activeUsers = (Math.floor(Math.random() * 50000) + 10000).toLocaleString();
 
+    // 100% reliable offline premium fallback if an image is missing
+    const svgStr = `<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400"><rect width="600" height="400" fill="#12121A"/><text x="50%" y="50%" font-family="Bebas Neue, sans-serif" font-size="50" fill="#C9A84C" text-anchor="middle" dominant-baseline="middle">${game.title}</text></svg>`;
+    const placeholder = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svgStr)}`;
+    const thumbSrc = game.thumbnail ? `./${game.thumbnail}` : placeholder;
+
     detailsContent.innerHTML = `
         <div class="game-hero">
-            <img src="/${game.thumbnail}" alt="${game.title} - Play Free Online" class="hero-thumb" onerror="this.src='https://placehold.co/600x400/1e293b/f8fafc?text=${game.title.replace(/ /g, '+')}'">
+            <img src="${thumbSrc}" alt="${game.title} - Play Free Online" class="hero-thumb" onerror="this.onerror=null; this.src='${placeholder}';">
         </div>
         
         <h2 class="game-title">${game.title}</h2>
