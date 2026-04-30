@@ -68,12 +68,9 @@
     <!-- Preload critical CSS -->
     <link rel="preload" href="/css/style.css" as="style">
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" as="style">
-    <!-- Preload critical JS -->
-    <link rel="preload" href="/js/games.js" as="script">
-    <link rel="preload" href="/js/main.js" as="script">
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/style.css?v=4">
 </head>
 
 <body>
@@ -187,14 +184,19 @@
 
     </div>
 
-    <!-- defer = non-blocking, loads after HTML parsed -->
-    <script src="/js/games.js" defer></script>
-    <script src="/js/main.js" defer></script>
+    <!-- Scripts at bottom of body for guaranteed execution order without race conditions -->
+    <script src="/js/games.js?v=4"></script>
+    <script src="/js/main.js?v=4"></script>
     <script>
-        // Register SW after page load — non-blocking
+        // Unregister any stuck service workers that are breaking the local experience
         if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                for(let registration of registrations) {
+                    registration.unregister();
+                }
+            });
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js')
+                navigator.serviceWorker.register('/sw.js?v=4')
                     .then(() => console.log('PWA: SW registered.'))
                     .catch(err => console.log('PWA: SW failed.', err));
             });

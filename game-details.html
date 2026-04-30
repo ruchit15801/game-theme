@@ -160,8 +160,8 @@
         </footer>
     </div>
 
-    <script src="/js/games.js"></script>
-    <script src="/js/details.js"></script>
+    <script src="/js/games.js?v=4"></script>
+    <script src="/js/details.js?v=4"></script>
     <script>
         // Store game visit in localStorage for Recent Games logic
         const params = new URLSearchParams(window.location.search);
@@ -173,10 +173,15 @@
             localStorage.setItem('recent_games', JSON.stringify(recent.slice(0, 8)));
         }
 
-        // Register Service Worker
+        // Unregister any stuck service workers that are breaking the local experience
         if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                for(let registration of registrations) {
+                    registration.unregister();
+                }
+            });
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js');
+                navigator.serviceWorker.register('/sw.js?v=4');
             });
         }
     </script>
