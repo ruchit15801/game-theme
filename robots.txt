@@ -1,8 +1,10 @@
 User-agent: *
 Allow: /
-Allow: /index.html
-Allow: /game-details.html
 Allow: /games/
+Allow: /about
+Allow: /contact
+Allow: /privacy
+Allow: /terms
 
 # Sitemap location
-Sitemap: https://a23game.in/sitemap.xml
+Sitemap: https://vhcta.com/sitemap.xml

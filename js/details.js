@@ -39,7 +39,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // 100% reliable offline premium fallback if an image is missing
     const svgStr = `<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400"><rect width="600" height="400" fill="#12121A"/><text x="50%" y="50%" font-family="Bebas Neue, sans-serif" font-size="50" fill="#C9A84C" text-anchor="middle" dominant-baseline="middle">${game.title}</text></svg>`;
     const placeholder = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svgStr)}`;
-    const thumbSrc = game.thumbnail ? `./${game.thumbnail}` : placeholder;
+    // Use absolute root path for thumbnail — avoids breakage when URL is /games/slug
+    const thumbSrc = game.thumbnail ? `/${game.thumbnail}` : placeholder;
 
     detailsContent.innerHTML = `
         <div class="game-hero">
@@ -64,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <p>${game.longDescription}</p>
             </div>
             
-            <div class="description-section" style="margin-top: 2rem; border-top: 1px solid var(--glass-border); padding-top: 2rem;">
+            <div class="description-section" style="margin-top: 2rem; border-top: 1px solid var(--gold-border); padding-top: 2rem;">
                 <h3>How to Play</h3>
                 <p>${game.howToPlay}</p>
             </div>
@@ -72,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
     
     // Update Page Title & SEO Meta Tags
-    const fullTitle = `Play ${game.title} Online - Best Free Mobile Games | A23GAMES`;
+    const fullTitle = `Play ${game.title} Online - Free Games | VHCTA Games`;
     document.title = fullTitle;
     
     // SEO Meta Tags update
@@ -86,10 +87,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (ogDesc) ogDesc.setAttribute('content', game.longDescription.substring(0, 160));
     
     const ogImage = document.getElementById('og-image');
-    if (ogImage) ogImage.setAttribute('content', `https://a23game.in/${game.thumbnail}`);
+    if (ogImage) ogImage.setAttribute('content', `https://vhcta.com/${game.thumbnail || 'assets/icon-512.png'}`);
 
     const canonical = document.getElementById('canonical-url');
-    const prettyUrl = `https://a23game.in/games/${game.slug || game.id}`;
+    const prettyUrl = `https://vhcta.com/games/${game.slug || game.id}`;
     if (canonical) canonical.setAttribute('href', prettyUrl);
 
     // SEO Strategy: Inject JSON-LD for individual Game SEO ranking

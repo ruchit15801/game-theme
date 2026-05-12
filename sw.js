@@ -1,13 +1,17 @@
-/* ─── A23 Games — Performance Service Worker v2 ─── */
-const CACHE_NAME    = 'a23games-v3';
-const FONT_CACHE    = 'a23fonts-v1';
-const IMG_CACHE     = 'a23images-v1';
+/* ─── VHCTA Games — Performance Service Worker v7 ─── */
+const CACHE_NAME    = 'vhcta-v7';
+const FONT_CACHE    = 'vhcta-fonts-v7';
+const IMG_CACHE     = 'vhcta-images-v7';
 
 // Core shell — always cache-first
 const SHELL_ASSETS = [
     '/',
     '/index.html',
     '/game-details.html',
+    '/about.html',
+    '/contact.html',
+    '/privacy.html',
+    '/terms.html',
     '/css/style.css',
     '/js/main.js',
     '/js/details.js',

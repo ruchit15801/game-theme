@@ -1,13 +1,19 @@
 {
-  "name": "A23Games Portal",
-  "short_name": "A23Games",
-  "description": "Play the best free mobile games and online puzzle games on A23Games.",
-  "start_url": "/index.html",
+  "name": "VHCTA Games",
+  "short_name": "VHCTA",
+  "description": "Play 100+ free online games on VHCTA Games. No downloads. Instant play on any device.",
+  "start_url": "/",
   "display": "standalone",
-  "background_color": "#0f172a",
-  "theme_color": "#38bdf8",
+  "background_color": "#0A0A0F",
+  "theme_color": "#C9A84C",
   "orientation": "portrait",
   "icons": [
+    {
+      "src": "assets/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
     {
       "src": "assets/icon-512.png",
       "sizes": "512x512",
